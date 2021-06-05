@@ -8,16 +8,16 @@ namespace Mini.Dumper.Dumpers
 {
     public class TaskDumper
     {
-        // public Dictionary<TaskTypes, TaskData> tasks = new Dictionary<TaskTypes, TaskData>();
+        public Dictionary<TaskTypes, TaskData> tasks = new Dictionary<TaskTypes, TaskData>();
 
         public class TaskConsole
         {
-            // public int id;
-            // public string hudText;
-            // public SystemTypes room;
-            // public float positionX;
-            // public float positionY;
-            // public float usableDistance;
+            public int id;
+            public string hudText;
+            public SystemTypes room;
+            public float positionX;
+            public float positionY;
+            public float usableDistance;
 
             public TaskConsole(int id, SystemTypes room, TaskTypes type, float positionX, float positionY, float usableDistance)
             {
@@ -26,23 +26,23 @@ namespace Mini.Dumper.Dumpers
                 hudText.Append(": ");
                 hudText.Append(TranslationController.Instance.GetString(type));
 
-                // this.id = id;
-                // this.hudText = hudText.ToString();
-                // this.room = room;
-                // this.positionX = positionX;
-                // this.positionY = positionY;
-                // this.usableDistance = usableDistance;
+                this.id = id;
+                this.hudText = hudText.ToString();
+                this.room = room;
+                this.positionX = positionX;
+                this.positionY = positionY;
+                this.usableDistance = usableDistance;
             }
         }
 
         public class TaskData
         {
-            // public TaskTypes taskType;
-            // public List<TaskConsole> consoles = new List<TaskConsole>();
+            public TaskTypes taskType;
+            public List<TaskConsole> consoles = new List<TaskConsole>();
 
             public TaskData(TaskTypes taskType)
             {
-                // this.taskType = taskType;
+                this.taskType = taskType;
             }
         }
 
@@ -84,13 +84,14 @@ namespace Mini.Dumper.Dumpers
             {
                 foreach (var taskType in console.TaskTypes)
                 {
-                    /*TaskData taskData;
+                    TaskData taskData;
                     if (!tasks.TryGetValue(taskType, out taskData))
                         tasks.Add(taskType, taskData = new TaskData(taskType));
 
                     List<NormalPlayerTask> playerTasks = GetNormalPlayerTasks(shipStatus, taskType);
 
-                    TaskConsole taskConsole = new TaskConsole(0, console.Room, taskType, console.transform.position.x, console.transform.position.y, console.UsableDistance);*/
+                    TaskConsole taskConsole = new TaskConsole(console.ConsoleId, console.Room, taskType, console.transform.position.x, console.transform.position.y, console.UsableDistance);
+		    taskData.consoles.Add(taskConsole);
                 }
             }
         }
