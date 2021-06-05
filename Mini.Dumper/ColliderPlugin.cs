@@ -41,6 +41,7 @@ namespace Mini.Dumper
         {
             public ColliderDumper colliders = new ColliderDumper();
             public PlayerDumper players = new PlayerDumper();
+            public TaskDumper tasks = new TaskDumper();
         }
 
 
@@ -58,7 +59,7 @@ namespace Mini.Dumper
                     Debug.Log("Starting collider dump");
                     // start collision dumper
                     var dump = Dump();
-                    using (StreamWriter sw = File.CreateText(@"Z:\tmp\colliders.json"))
+                    using (StreamWriter sw = File.CreateText(@"C:\colliders.json"))
                     {
                         sw.WriteLine(dump);
                     }
@@ -69,8 +70,9 @@ namespace Mini.Dumper
             private string Dump()
             {
                 var dump = new Dump();
-                dump.colliders.Dump(ShipStatus.Instance);
-                dump.players.Dump(GameData.Instance);
+                // dump.colliders.Dump(ShipStatus.Instance);
+                // dump.players.Dump(GameData.Instance);
+                dump.tasks.Dump(ShipStatus.Instance);
 
                 return JsonConvert.SerializeObject(dump, Formatting.Indented);
             }
