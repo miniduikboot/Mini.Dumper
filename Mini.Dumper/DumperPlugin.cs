@@ -16,7 +16,7 @@ namespace Mini.Dumper
     [BepInPlugin(Id)]
     [BepInProcess("Among Us.exe")]
     [BepInDependency(ReactorPlugin.Id)]
-    public class ColliderPlugin : BasePlugin
+    public class DumperPlugin : BasePlugin
     {
         public const string Id = "at.duikbo.dumper";
 
@@ -28,9 +28,7 @@ namespace Mini.Dumper
 
         public override void Load()
         {
-            RegisterInIl2CppAttribute.Register();
-
-            var gameObj = new GameObject(nameof(ColliderPlugin)).DontDestroy();
+            var gameObj = new GameObject(nameof(DumperPlugin)).DontDestroy();
             Component = gameObj.AddComponent<TriggerComponent>();
             //Name = Config.Bind("Fake", "Name", ":>");
 
