@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using BepInEx.Configuration;
 using BepInEx.IL2CPP;
 using HarmonyLib;
 using Reactor;
@@ -23,17 +22,12 @@ namespace Mini.Dumper
 
         public Harmony Harmony { get; } = new Harmony(Id);
 
-        public ConfigEntry<string> Path { get; private set; }
-
         public TriggerComponent Component { get; private set; }
 
         public override void Load()
         {
             var gameObj = new GameObject(nameof(DumperPlugin)).DontDestroy();
             Component = gameObj.AddComponent<TriggerComponent>();
-            //Name = Config.Bind("Fake", "Name", ":>");
-
-            //            Harmony.PatchAll();
         }
 
         public class Dump
@@ -66,7 +60,16 @@ namespace Mini.Dumper
 
                     StringBuilder outputFile = new StringBuilder();
 
-                    using (StreamWriter sw = File.CreateText(@"Z:\tmp\colliders.json"))
+                    var dumpsDir = Path.Combine(BepInEx.Paths.GameRootPath, "dumps");
+                    if (!Directory.Exists(dumpsDir))
+                    {
+                        Directory.CreateDirectory(dumpsDir);
+                    }
+
+                    var mapName = ShipStatus.Instance.GetIl2CppType().Name;
+                    var outputPath = Path.Combine(dumpsDir, $"{mapName}.json");
+
+                    using (StreamWriter sw = File.CreateText(outputPath))
                     {
                         sw.WriteLine(dumpstr);
                     }
