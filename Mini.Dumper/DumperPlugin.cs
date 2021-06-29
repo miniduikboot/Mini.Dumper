@@ -5,11 +5,12 @@ using HarmonyLib;
 using Reactor;
 using Reactor.Extensions;
 using UnityEngine;
+using Utf8Json;
 using System;
 using System.Text;
 using System.IO;
 using Mini.Dumper.Dumpers;
-using Newtonsoft.Json;
+
 
 namespace Mini.Dumper
 {
@@ -61,7 +62,7 @@ namespace Mini.Dumper
                     dump.players.Dump(GameData.Instance);
                     dump.tasks.Dump(ShipStatus.Instance);
 
-                    var dumpstr = JsonConvert.SerializeObject(dump, Formatting.Indented);
+                    var dumpstr = JsonSerializer.ToJsonString(dump);
 
                     StringBuilder outputFile = new StringBuilder();
 
