@@ -1,21 +1,18 @@
 ﻿using BepInEx;
 using BepInEx.IL2CPP;
 using HarmonyLib;
-using Reactor;
-using Reactor.Extensions;
 using UnityEngine;
 using Utf8Json;
 using System;
 using System.Text;
 using System.IO;
 using Mini.Dumper.Dumpers;
-
+using UnhollowerRuntimeLib;
 
 namespace Mini.Dumper
 {
     [BepInPlugin(Id)]
     [BepInProcess("Among Us.exe")]
-    [BepInDependency(ReactorPlugin.Id)]
     public class DumperPlugin : BasePlugin
     {
         public const string Id = "at.duikbo.dumper";
@@ -26,7 +23,9 @@ namespace Mini.Dumper
 
         public override void Load()
         {
-            var gameObj = new GameObject(nameof(DumperPlugin)).DontDestroy();
+            ClassInjector.RegisterTypeInIl2Cpp(typeof(TriggerComponent));
+            var gameObj = new GameObject(nameof(DumperPlugin));
+            gameObj.hideFlags |= HideFlags.HideAndDontSave;
             Component = gameObj.AddComponent<TriggerComponent>();
         }
 
@@ -37,12 +36,15 @@ namespace Mini.Dumper
             public TaskDumper tasks = new TaskDumper();
         }
 
-
-        [RegisterInIl2Cpp]
         public class TriggerComponent : MonoBehaviour
         {
             public TriggerComponent(IntPtr ptr) : base(ptr)
             {
+            }
+
+            private void Start()
+            {
+                ModManager.Instance.ShowModStamp();
             }
 
             private void Update()

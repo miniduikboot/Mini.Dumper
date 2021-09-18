@@ -10,7 +10,6 @@
         <Reference Include="$(AmongUs)\BepInEx\core\*.dll" Private="false"/>
         <Reference Include="$(AmongUs)\BepInEx\unhollowed\*.dll" Private="false"/>
         <Reference Remove="$(AmongUs)\BepInEx\unhollowed\netstandard.dll;$(AmongUs)\BepInEx\unhollowed\Newtonsoft.Json.dll" />
-        <Reference Include="$(AmongUs)\BepInEx\plugins\Reactor.dll" Private="false" />
         <PackageReference Include="Utf8Json" Version="1.3.7" />
     </ItemGroup>
 
